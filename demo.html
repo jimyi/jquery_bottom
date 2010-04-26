@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head profile="http://gmpg.org/xfn/11">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>jQuery Bottom Demo</title>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+	<script type="text/javascript" src="jquery.bottom-1.0.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#wrap").bottom({proximity: 0.05});
+			$("#wrap").bind("bottom", function() {
+				var obj = $(this);
+				// this event could be triggered multiple times
+				// while waiting for the content to grow or the area to be scrolled
+				if (!obj.data("loading")) {
+					// use a variable to skip processing until we get more data
+					obj.data("loading", true);
+
+					$('#wrap ol').append('<li>Loading...</li>');
+					// Use setTimeout to simulate an ajax call
+					setTimeout(function() {
+						$('#wrap ol li:last').remove();
+						$('#wrap ol').append('<li>Not just another item</li><li>Not just another item</li><li>Not just another item</li>');
+						obj.data("loading", false);
+					}, 1500);
+				}
+			});
+			$(window).bottom();
+			$(window).bind("bottom", function() {
+				$("#list").append("<li>Not just another item</li><li>Not just another item</li><li>Not just another item</li>");
+				$("#list").append("<li>Not just another item</li><li>Not just another item</li><li>Not just another item</li>");
+				$("#list").append("<li>Not just another item</li><li>Not just another item</li><li>Not just another item</li>");
+				$("#list").append("<li>Not just another item</li><li>Not just another item</li><li>Not just another item</li>");
+				$("#list").append("<li>Not just another item</li><li>Not just another item</li><li>Not just another item</li>");
+				$("#list").append("<li>Not just another item</li><li>Not just another item</li><li>Not just another item</li>");
+				$("#list").append("<li>Not just another item</li><li>Not just another item</li><li>Not just another item</li>");
+			});
+		});
+	</script>
+	<style type="text/css">
+		#wrap { border: 1px solid #000; width: 400px; height: 150px; overflow: auto }
+	</style>
+</head>
+<body><br /><br />
+	<div id="wrap">
+		<ol>
+			<li>Just another list item</li>
+			<li>Just another list item</li>
+			<li>Just another list item</li>
+			<li>Just another list item</li>
+			<li>Just another list item</li>
+			<li>Just another list item</li>
+			<li>Just another list item</li>
+			<li>Just another list item</li>
+			<li>Just another list item</li>
+		</ol>
+	</div>
+
+	<br /><br /><br /><br />
+	<ol id="list">
+		<li>More content here</li>
+		<li>More content here</li>
+		<li>More content here</li>
+		<li>More content here</li>
+		<li>More content here</li>
+		<li>More content here</li>
+		<li>More content here</li>
+		<li>More content here</li>
+		<li>More content here</li>
+		<li>More content here</li>
+		<li>More content here</li>
+		<li>More content here</li>
+		<li>More content here</li>
+		<li>More content here</li>
+		<li>More content here</li>
+		<li>More content here</li>
+		<li>More content here</li>
+		<li>More content here</li>
+		<li>More content here</li>
+		<li>More content here</li>
+		<li>More content here</li>
+		<li>More content here</li>
+		<li>More content here</li>
+		<li>More content here</li>
+		<li>More content here</li>
+		<li>More content here</li>
+		<li>More content here</li>
+	</ol>
+</body>
+</html>

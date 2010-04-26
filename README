@@ -1,0 +1,38 @@
+Overview
+-------------
+Adds a "bottom" event that will be triggered when the user has scrolled
+to the bottom or within proximity to the bottom of an element.
+
+Syntax
+-------------
+$(element).bottom(options);
+
+Options
+-------------
+proximity (optional - default: 0):How close to the scrollbar is to the bottom of the element before triggering a load.  Use proximity: 0 for absolute bottom.
+	Proximity = (total scroll height - current scroll position) / total scroll height.
+
+Example Usage
+-------------
+// we start with 1 page of data
+var page = 1;
+$(document).ready(function() {
+    $(window).bottom();
+    $(window).bind("bottom", function() {
+        var obj = $(this);
+        // since this ajax call might take a while
+        if (!obj.data("loading")) {
+            obj.data("loading", true);
+            $("#news_list").append("&lt;li&gt;Loading...&lt;/li&gt;");
+            $.getJSON("/news/list?page=" + (++page), function(data) {
+                // remove the loading text
+                $("#news_list li:last").remove();
+                for (var i = 0; i < data.news.length; i++) {
+                    $("#news_list").append("&lt;li&gt;" + data.news[i].headline + "&lt;/li&gt;");
+                }
+                // now that the ajax call is done, we can re-enable this
+                obj.data("loading", false);
+            });
+        }
+    });
+});
